@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/safe_duck.dir/safe_duck.cpp.o -o safe_duck 

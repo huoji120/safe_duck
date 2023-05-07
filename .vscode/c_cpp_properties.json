@@ -1,0 +1,26 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/usr/include/x86_64-linux-gnu/**",
+                "/usr/src/linux-hwe-5.19-headers-5.19.0-32/arch/x86/include/**",
+                "/usr/src/linux-hwe-5.19-headers-5.19.0-32/include/**",
+                "/usr/src/linux-headers-5.19.0-41-generic/arch/x86/include/generated/**",
+                "/usr/src/linux-headers-5.19.0-41-generic/arch/x86/include",
+                "/usr/src/linux-headers-5.19.0-41-generic/arch/x86/include/generated",
+                "/usr/src/linux-headers-5.19.0-41-generic/include"
+            ],
+            "defines": [
+                "__KERNEL__",
+                "MODULE"
+            ],
+            "compilerPath": "/usr/bin/g++-11",
+            "cStandard": "c23",
+            "cppStandard": "c++11",
+            "intelliSenseMode": "linux-gcc-x64"
+        }
+    ],
+    "version": 4
+}

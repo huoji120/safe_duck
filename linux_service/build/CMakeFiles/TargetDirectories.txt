@@ -1,0 +1,3 @@
+/home/duck/project/linux_service/build/CMakeFiles/safe_duck.dir
+/home/duck/project/linux_service/build/CMakeFiles/edit_cache.dir
+/home/duck/project/linux_service/build/CMakeFiles/rebuild_cache.dir
