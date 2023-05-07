@@ -20,9 +20,15 @@
 #include <linux/errno.h>
 #include <linux/spinlock.h>
 #include <linux/cdev.h>
+#include <linux/slab.h>
+#include <linux/list.h>
+#include <linux/hash.h>
 #include "some_struct.h"
 #include "global.h"
 #include "msg.h"
+#include "ip_hashmap.h"
+#include "network.h"
+#include "client_msg.h"
 #define DEVICE_NAME "safe_duck"
 #define DEVICE_CNT 1
 MODULE_LICENSE("GPL");

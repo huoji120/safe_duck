@@ -1,36 +1,5 @@
 #include "head.h"
 
-struct safe_duck_dev {
-    wait_queue_head_t read_wait;
-};
-
-unsigned int network_callback(const struct nf_hook_ops *ops,
-                              struct sk_buff *skb, const struct net_device *in,
-                              const struct net_device *out,
-                              int (*okfn)(struct sk_buff *)) {
-    do {
-        if (skb == NULL) {
-            break;
-        }
-        struct iphdr *ip_header = ip_hdr(skb);
-
-        if (ip_header == NULL) {
-            break;
-        }
-        // push ip address to list
-        struct kernel_msg_t *msg =
-            kmalloc(sizeof(struct kernel_msg_t), GFP_KERNEL);
-        if (msg == NULL) {
-            printk(KERN_ERR "Failed to allocate memory for new msg\n");
-            break;
-        }
-        msg->type = SD_MSG_TYPE_NEW_IP_CONNECT;
-        msg->u.poll_req.src_ip = ip_header->saddr;
-        push_msg(msg);
-    } while (false);
-
-    return NF_ACCEPT;
-}
 unsigned int driver_poll_callback(struct file *filep,
                                   struct poll_table_struct *wait) {
     unsigned int mask = 0;
@@ -61,6 +30,32 @@ ssize_t safe_duck_read(struct file *file, char __user *buf, size_t count,
     return ret;
 }
 
+ssize_t safe_duck_write(struct file *filp, const char __user *buf, size_t count,
+                        loff_t *f_pos) {
+    if (count > sizeof(struct client_msg_t)) {
+        return -EINVAL;
+    }
+    struct client_msg_t *message =
+        kmalloc(sizeof(struct client_msg_t), GFP_KERNEL);
+    do {
+        if (message == NULL) {
+            printk(KERN_ERR "Failed to allocate memory for new msg\n");
+            break;
+        }
+        if (copy_from_user(message, buf, sizeof(struct client_msg_t))) {
+            return -EFAULT;
+        }
+        if (message->check_sum != MSG_CHECK_SUM) {
+            printk(KERN_ERR "Invalid checksum\n");
+            break;
+        }
+        dispath_client_msg(message);
+    } while (false);
+    if (message != NULL) {
+        kfree(message);
+    }
+    return count;
+}
 int safe_duck_open(struct inode *inode, struct file *filep) { return 0; }
 bool build_dev(void) {
     int rc = alloc_chrdev_region(&g_driver_dev_build.devid, 0, DEVICE_CNT,
@@ -71,6 +66,8 @@ bool build_dev(void) {
         printk("newchrled chr_dev region err\n");
         return false;
     }
+    g_driver_dev_build.init_chrdev_region = true;
+
     printk(KERN_WARNING "major:%d, minor:%d\n", g_driver_dev_build.major,
            g_driver_dev_build.minor);
     cdev_init(&g_driver_dev_build.cdev, &g_fops);
@@ -80,16 +77,40 @@ bool build_dev(void) {
     if (IS_ERR(g_driver_dev_build.class)) {
         return false;
     }
+    g_driver_dev_build.init_cdev_add = true;
     g_driver_dev_build.device =
         device_create(g_driver_dev_build.class, NULL, g_driver_dev_build.devid,
                       NULL, DEVICE_NAME);
-    return IS_ERR(g_driver_dev_build.device) == false;
+    const bool build_dev_success = IS_ERR(g_driver_dev_build.device) == false;
+    if (build_dev_success) {
+        g_driver_dev_build.init_device_create = true;
+    }
+    return build_dev_success;
 }
 void destory_dev(void) {
-    cdev_del(&g_driver_dev_build.cdev);
-    unregister_chrdev_region(g_driver_dev_build.devid, DEVICE_NAME);
-    device_destroy(g_driver_dev_build.class, g_driver_dev_build.devid);
-    class_destroy(g_driver_dev_build.class);
+    if (g_driver_dev_build.init_cdev_add) {
+        cdev_del(&g_driver_dev_build.cdev);
+    }
+    if (g_driver_dev_build.init_chrdev_region) {
+        unregister_chrdev_region(g_driver_dev_build.devid, DEVICE_NAME);
+    }
+    if (g_driver_dev_build.init_device_create) {
+        device_destroy(g_driver_dev_build.class, g_driver_dev_build.devid);
+    }
+    if (g_driver_dev_build.init_cdev_add) {
+        class_destroy(g_driver_dev_build.class);
+    }
+}
+int cleanup(void) {
+    if (g_driver_dev_build.init_netfilter) {
+        nf_unregister_net_hook(&init_net, &g_network_hook_ops);
+    }
+    if (g_driver_dev_build.init_hashmap) {
+        cleanup_iphashmap();
+    }
+    destory_dev();
+    cleanup_msg();
+    return -1;
 }
 static int __init driver_entry(void) {
     printk(KERN_WARNING "[DebugMessage] safe duck init\n");
@@ -99,21 +120,25 @@ static int __init driver_entry(void) {
         printk(KERN_ERR "Failed to build device\n");
         return -1;
     }
+    if (init_ip_hashmap() == false) {
+        printk(KERN_ERR "Failed to init ip hashmap\n");
+        return cleanup();
+    }
+    g_driver_dev_build.init_hashmap = true;
     init_msg();
     int rc = nf_register_net_hook(&init_net, &g_network_hook_ops);
     if (rc < 0) {
         printk(KERN_ERR "Failed to register network hook: %d\n", rc);
-        return rc;
+        return cleanup();
     }
+    g_driver_dev_build.init_netfilter = true;
     printk(KERN_WARNING "[DebugMessage] safe duck init success \n");
     return 0;
 }
 
 static void __exit driver_exit(void) {
     printk(KERN_INFO "[DebugMessage] safe duck exit\n");
-    nf_unregister_net_hook(&init_net, &g_network_hook_ops);
-    cleanup_msg();
-    destory_dev();
+    cleanup();
 }
 
 module_init(driver_entry);

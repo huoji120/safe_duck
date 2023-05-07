@@ -5,6 +5,7 @@ size_t g_msg_length;
 void push_msg(struct kernel_msg_t *msg) {
     if (get_msg_list_length() > 0x1000) {
         printk(KERN_ERR "Too many messages in the list\n");
+        kfree(msg);
         return;
     }
     struct msg_list *new_msg = kmalloc(sizeof(struct msg_list), GFP_KERNEL);
@@ -21,6 +22,36 @@ void push_msg(struct kernel_msg_t *msg) {
     if (g_is_r3_ready) {
         wake_up_interruptible(&g_r3_wait_queue);
     }
+}
+void push_msg_new_ip_connect(size_t ip_address) {
+    struct kernel_msg_t *msg = kmalloc(sizeof(struct kernel_msg_t), GFP_KERNEL);
+    if (msg == NULL) {
+        printk(KERN_ERR "Failed to allocate memory for new msg\n");
+        return;
+    }
+    msg->type = SD_MSG_TYPE_NEW_IP_CONNECT;
+    msg->u.ip_action.src_ip = ip_address;
+    push_msg(msg);
+}
+void push_msg_syn_attack(size_t ip_address) {
+    struct kernel_msg_t *msg = kmalloc(sizeof(struct kernel_msg_t), GFP_KERNEL);
+    if (msg == NULL) {
+        printk(KERN_ERR "Failed to allocate memory for new msg\n");
+        return;
+    }
+    msg->type = SD_MSG_TYPE_SYN_ATTACK;
+    msg->u.ip_action.src_ip = ip_address;
+    push_msg(msg);
+}
+void push_msg_ssh_bf_attack(size_t ip_address) {
+    struct kernel_msg_t *msg = kmalloc(sizeof(struct kernel_msg_t), GFP_KERNEL);
+    if (msg == NULL) {
+        printk(KERN_ERR "Failed to allocate memory for new msg\n");
+        return;
+    }
+    msg->type = SD_MSG_TYPE_SSH_BF_ATTACK;
+    msg->u.ip_action.src_ip = ip_address;
+    push_msg(msg);
 }
 struct kernel_msg_t *get_msg(void) {
     struct kernel_msg_t *msg = NULL;

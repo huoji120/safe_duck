@@ -1,5 +1,5 @@
-0x8d232039	push_msg	/home/duck/project/linux_kernel/safe_duck	EXPORT_SYMBOL	
-0x4b7cb975	get_msg	/home/duck/project/linux_kernel/safe_duck	EXPORT_SYMBOL	
+0xe98895fa	push_msg	/home/duck/project/linux_kernel/safe_duck	EXPORT_SYMBOL	
+0xb1b3bd13	get_msg	/home/duck/project/linux_kernel/safe_duck	EXPORT_SYMBOL	
 0xb3ceb32b	get_msg_list_length	/home/duck/project/linux_kernel/safe_duck	EXPORT_SYMBOL	
 0x38a1fb31	cleanup_msg	/home/duck/project/linux_kernel/safe_duck	EXPORT_SYMBOL	
 0x50632040	init_msg	/home/duck/project/linux_kernel/safe_duck	EXPORT_SYMBOL	

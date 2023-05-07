@@ -4,7 +4,8 @@
 # 设定变量
 MODULE_NAME=safe_duck
 TARGET_DIR="/run/user/1000/gvfs/smb-share:server=192.168.1.2,share=dev_share"
-
+cmake build;
+cd build;
 # 编译模块
 if make; then
 
@@ -24,3 +25,4 @@ else
   echo "Failed to build ${MODULE_NAME}"
 
 fi
+make clean

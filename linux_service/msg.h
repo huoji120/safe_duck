@@ -1,6 +1,7 @@
 #pragma once
 #include "head.h"
 #define MSG_CHECK_SUM 1337
+
 typedef enum _msg_type {
     SD_MSG_TYPE_ERROR = -1,
     SD_MSG_TYPE_NEW_IP_CONNECT = 0,
@@ -8,7 +9,6 @@ typedef enum _msg_type {
     SD_MSG_TYPE_CLIENT_BLOCK_IP = 2,
     SD_MSG_TYPE_SSH_BF_ATTACK = 3,
 };
-
 typedef struct kernel_msg_t {
     unsigned long check_sum;
     int type;
@@ -28,16 +28,10 @@ typedef struct client_msg_t {
         } ip_address;
     } u;
 };
-typedef struct msg_list {
-    struct list_head node;
-    struct kernel_msg_t *msg;
-};
-
-extern void push_msg(struct kernel_msg_t *msg);
-extern struct kernel_msg_t *get_msg(void);
-extern size_t get_msg_list_length(void);
-extern void cleanup_msg(void);
-extern void init_msg(void);
-extern void push_msg_syn_attack(size_t ip_address);
-extern void push_msg_new_ip_connect(size_t ip_address);
-extern void push_msg_ssh_bf_attack(size_t ip_address);
+namespace client_msg {
+auto dispath_kernel_msg() -> void;
+auto block_ip(size_t ip_address, size_t time_sec) -> bool;
+auto init() -> bool;
+auto call_driver(client_msg_t msg) -> bool;
+auto uninstall() -> void;
+}  // namespace client_msg

@@ -358,4 +358,7 @@ msg.o: /home/duck/project/linux_kernel/msg.c \
  include/uapi/linux/udp.h include/linux/inet.h include/linux/cdev.h \
  /home/duck/project/linux_kernel/some_struct.h \
  /home/duck/project/linux_kernel/global.h \
- /home/duck/project/linux_kernel/msg.h
+ /home/duck/project/linux_kernel/msg.h \
+ /home/duck/project/linux_kernel/ip_hashmap.h \
+ /home/duck/project/linux_kernel/network.h \
+ /home/duck/project/linux_kernel/client_msg.h

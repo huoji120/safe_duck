@@ -83,17 +83,65 @@ CMakeFiles/safe_duck.dir/safe_duck.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/safe_duck.dir/safe_duck.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/duck/project/linux_service/safe_duck.cpp -o CMakeFiles/safe_duck.dir/safe_duck.cpp.s
 
+CMakeFiles/safe_duck.dir/msg.cpp.o: CMakeFiles/safe_duck.dir/flags.make
+CMakeFiles/safe_duck.dir/msg.cpp.o: ../msg.cpp
+CMakeFiles/safe_duck.dir/msg.cpp.o: CMakeFiles/safe_duck.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/duck/project/linux_service/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/safe_duck.dir/msg.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/safe_duck.dir/msg.cpp.o -MF CMakeFiles/safe_duck.dir/msg.cpp.o.d -o CMakeFiles/safe_duck.dir/msg.cpp.o -c /home/duck/project/linux_service/msg.cpp
+
+CMakeFiles/safe_duck.dir/msg.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/safe_duck.dir/msg.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/duck/project/linux_service/msg.cpp > CMakeFiles/safe_duck.dir/msg.cpp.i
+
+CMakeFiles/safe_duck.dir/msg.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/safe_duck.dir/msg.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/duck/project/linux_service/msg.cpp -o CMakeFiles/safe_duck.dir/msg.cpp.s
+
+CMakeFiles/safe_duck.dir/tools.cpp.o: CMakeFiles/safe_duck.dir/flags.make
+CMakeFiles/safe_duck.dir/tools.cpp.o: ../tools.cpp
+CMakeFiles/safe_duck.dir/tools.cpp.o: CMakeFiles/safe_duck.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/duck/project/linux_service/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/safe_duck.dir/tools.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/safe_duck.dir/tools.cpp.o -MF CMakeFiles/safe_duck.dir/tools.cpp.o.d -o CMakeFiles/safe_duck.dir/tools.cpp.o -c /home/duck/project/linux_service/tools.cpp
+
+CMakeFiles/safe_duck.dir/tools.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/safe_duck.dir/tools.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/duck/project/linux_service/tools.cpp > CMakeFiles/safe_duck.dir/tools.cpp.i
+
+CMakeFiles/safe_duck.dir/tools.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/safe_duck.dir/tools.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/duck/project/linux_service/tools.cpp -o CMakeFiles/safe_duck.dir/tools.cpp.s
+
+CMakeFiles/safe_duck.dir/global.cpp.o: CMakeFiles/safe_duck.dir/flags.make
+CMakeFiles/safe_duck.dir/global.cpp.o: ../global.cpp
+CMakeFiles/safe_duck.dir/global.cpp.o: CMakeFiles/safe_duck.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/duck/project/linux_service/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/safe_duck.dir/global.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/safe_duck.dir/global.cpp.o -MF CMakeFiles/safe_duck.dir/global.cpp.o.d -o CMakeFiles/safe_duck.dir/global.cpp.o -c /home/duck/project/linux_service/global.cpp
+
+CMakeFiles/safe_duck.dir/global.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/safe_duck.dir/global.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/duck/project/linux_service/global.cpp > CMakeFiles/safe_duck.dir/global.cpp.i
+
+CMakeFiles/safe_duck.dir/global.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/safe_duck.dir/global.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/duck/project/linux_service/global.cpp -o CMakeFiles/safe_duck.dir/global.cpp.s
+
 # Object files for target safe_duck
 safe_duck_OBJECTS = \
-"CMakeFiles/safe_duck.dir/safe_duck.cpp.o"
+"CMakeFiles/safe_duck.dir/safe_duck.cpp.o" \
+"CMakeFiles/safe_duck.dir/msg.cpp.o" \
+"CMakeFiles/safe_duck.dir/tools.cpp.o" \
+"CMakeFiles/safe_duck.dir/global.cpp.o"
 
 # External object files for target safe_duck
 safe_duck_EXTERNAL_OBJECTS =
 
 safe_duck: CMakeFiles/safe_duck.dir/safe_duck.cpp.o
+safe_duck: CMakeFiles/safe_duck.dir/msg.cpp.o
+safe_duck: CMakeFiles/safe_duck.dir/tools.cpp.o
+safe_duck: CMakeFiles/safe_duck.dir/global.cpp.o
 safe_duck: CMakeFiles/safe_duck.dir/build.make
 safe_duck: CMakeFiles/safe_duck.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/duck/project/linux_service/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable safe_duck"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/duck/project/linux_service/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable safe_duck"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/safe_duck.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

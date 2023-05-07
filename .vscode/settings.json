@@ -109,7 +109,9 @@
         "memory_resource": "cpp",
         "numeric": "cpp",
         "string_view": "cpp",
-        "numbers": "cpp"
+        "numbers": "cpp",
+        "ip_hashmap.h": "c",
+        "client_msg.h": "c"
     },
     "C_Cpp.errorSquiggles": "enabled"
 }

@@ -14,4 +14,5 @@ struct file_operations g_fops = {
     .open = safe_duck_open,
     .release = safe_duck_release,
     .read = safe_duck_read,
+    .write = safe_duck_write,
 };

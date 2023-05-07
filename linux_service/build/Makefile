@@ -129,6 +129,54 @@ safe_duck/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/safe_duck.dir/build.make CMakeFiles/safe_duck.dir/build
 .PHONY : safe_duck/fast
 
+global.o: global.cpp.o
+.PHONY : global.o
+
+# target to build an object file
+global.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/safe_duck.dir/build.make CMakeFiles/safe_duck.dir/global.cpp.o
+.PHONY : global.cpp.o
+
+global.i: global.cpp.i
+.PHONY : global.i
+
+# target to preprocess a source file
+global.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/safe_duck.dir/build.make CMakeFiles/safe_duck.dir/global.cpp.i
+.PHONY : global.cpp.i
+
+global.s: global.cpp.s
+.PHONY : global.s
+
+# target to generate assembly for a file
+global.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/safe_duck.dir/build.make CMakeFiles/safe_duck.dir/global.cpp.s
+.PHONY : global.cpp.s
+
+msg.o: msg.cpp.o
+.PHONY : msg.o
+
+# target to build an object file
+msg.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/safe_duck.dir/build.make CMakeFiles/safe_duck.dir/msg.cpp.o
+.PHONY : msg.cpp.o
+
+msg.i: msg.cpp.i
+.PHONY : msg.i
+
+# target to preprocess a source file
+msg.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/safe_duck.dir/build.make CMakeFiles/safe_duck.dir/msg.cpp.i
+.PHONY : msg.cpp.i
+
+msg.s: msg.cpp.s
+.PHONY : msg.s
+
+# target to generate assembly for a file
+msg.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/safe_duck.dir/build.make CMakeFiles/safe_duck.dir/msg.cpp.s
+.PHONY : msg.cpp.s
+
 safe_duck.o: safe_duck.cpp.o
 .PHONY : safe_duck.o
 
@@ -153,6 +201,30 @@ safe_duck.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/safe_duck.dir/build.make CMakeFiles/safe_duck.dir/safe_duck.cpp.s
 .PHONY : safe_duck.cpp.s
 
+tools.o: tools.cpp.o
+.PHONY : tools.o
+
+# target to build an object file
+tools.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/safe_duck.dir/build.make CMakeFiles/safe_duck.dir/tools.cpp.o
+.PHONY : tools.cpp.o
+
+tools.i: tools.cpp.i
+.PHONY : tools.i
+
+# target to preprocess a source file
+tools.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/safe_duck.dir/build.make CMakeFiles/safe_duck.dir/tools.cpp.i
+.PHONY : tools.cpp.i
+
+tools.s: tools.cpp.s
+.PHONY : tools.s
+
+# target to generate assembly for a file
+tools.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/safe_duck.dir/build.make CMakeFiles/safe_duck.dir/tools.cpp.s
+.PHONY : tools.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -162,9 +234,18 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... safe_duck"
+	@echo "... global.o"
+	@echo "... global.i"
+	@echo "... global.s"
+	@echo "... msg.o"
+	@echo "... msg.i"
+	@echo "... msg.s"
 	@echo "... safe_duck.o"
 	@echo "... safe_duck.i"
 	@echo "... safe_duck.s"
+	@echo "... tools.o"
+	@echo "... tools.i"
+	@echo "... tools.s"
 .PHONY : help
 
 
