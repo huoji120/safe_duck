@@ -20,7 +20,6 @@ void block_ip_address(size_t ip_address, size_t time_sec) {
 bool check_is_blacklist_ip(size_t ip_address) {
     struct ip_hashmap_node_t *data = get_ipdata_by_hashmap(ip_address);
     if (data == NULL) {
-        printk(KERN_ERR "Failed to get ip data from hashmap\n");
         return false;
     }
     return data->info.ip_meta_info.is_attack;

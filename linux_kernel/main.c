@@ -110,8 +110,10 @@ int cleanup(void) {
     }
     destory_dev();
     cleanup_msg();
+
     return -1;
 }
+
 static int __init driver_entry(void) {
     printk(KERN_WARNING "[DebugMessage] safe duck init\n");
 
