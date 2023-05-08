@@ -356,9 +356,24 @@ msg.o: /home/duck/project/linux_kernel/msg.c \
  include/net/netns/hash.h include/net/inet_timewait_sock.h \
  include/net/timewait_sock.h include/uapi/linux/tcp.h include/linux/udp.h \
  include/uapi/linux/udp.h include/linux/inet.h include/linux/cdev.h \
+ include/linux/kprobes.h include/linux/ftrace.h \
+ include/linux/trace_recursion.h include/linux/trace_clock.h \
+ arch/x86/include/asm/trace_clock.h include/linux/kallsyms.h \
+ include/linux/ptrace.h include/linux/pid_namespace.h \
+ include/uapi/linux/ptrace.h arch/x86/include/asm/ftrace.h \
+ include/linux/compat.h include/uapi/linux/aio_abi.h \
+ arch/x86/include/asm/compat.h include/linux/sched/task_stack.h \
+ include/uapi/linux/magic.h arch/x86/include/asm/user32.h \
+ include/asm-generic/compat.h arch/x86/include/asm/syscall_wrapper.h \
+ include/linux/freelist.h include/linux/rethook.h \
+ arch/x86/include/asm/kprobes.h include/asm-generic/kprobes.h \
+ arch/x86/include/asm/text-patching.h arch/x86/include/asm/insn.h \
+ arch/x86/include/asm/inat.h arch/x86/include/asm/inat_types.h \
  /home/duck/project/linux_kernel/some_struct.h \
  /home/duck/project/linux_kernel/global.h \
  /home/duck/project/linux_kernel/msg.h \
  /home/duck/project/linux_kernel/ip_hashmap.h \
  /home/duck/project/linux_kernel/network.h \
- /home/duck/project/linux_kernel/client_msg.h
+ /home/duck/project/linux_kernel/client_msg.h \
+ /home/duck/project/linux_kernel/my_kallsyms_lookup_name.h \
+ /home/duck/project/linux_kernel/hook.h

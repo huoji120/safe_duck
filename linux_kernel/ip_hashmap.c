@@ -1,4 +1,5 @@
 #include "ip_hashmap.h"
+#include <linux/jhash.h>
 static struct ip_hash_table g_ip_hashtable;
 
 void thread_demon_ip_hashmap(void *ctx) {
@@ -79,7 +80,12 @@ void check_resize_table(struct ip_hash_table *table) {
                         container_of(node, struct ip_hashmap_node_t, node);
                     hlist_del(&data->node);
                     int idx =
-                        hash_32(data->info.ip_address_key, table->bucket_num);
+                        jhash(&data->info.ip_address_key, sizeof(u32), 0) %
+                        table->bucket_num;
+
+                    // int idx =
+                    //     hash_32(data->info.ip_address_key,
+                    //     table->bucket_num);
                     hlist_add_head(&data->node, &new_heads[idx]);
                 }
             }
@@ -91,11 +97,13 @@ void check_resize_table(struct ip_hash_table *table) {
 }
 
 // 获取并插入哈希表节点
-void put_ipdata_by_hashmap(size_t ip_address_key,
-                           struct ip_hashmap_info *info) {
+void put_ipdata_by_hashmap(u32 ip_address_key, struct ip_hashmap_info *info) {
     struct ip_hash_table *table = &g_ip_hashtable;
-    int idx = hash_32(ip_address_key, table->bucket_num);
-    // 新建哈希表节点
+    // int idx = hash_32(ip_address_key, table->bucket_num);
+    int idx =
+        jhash(&ip_address_key, sizeof(ip_address_key), 0) % table->bucket_num;
+
+    //  新建哈希表节点
     struct ip_hashmap_node_t *data =
         kmalloc(sizeof(struct ip_hashmap_node_t), GFP_KERNEL);
     if (data) {
@@ -108,11 +116,16 @@ void put_ipdata_by_hashmap(size_t ip_address_key,
 }
 
 // 通过关键字获取哈希表节点
-struct ip_hashmap_node_t *get_ipdata_by_hashmap(size_t ip_address_key) {
+struct ip_hashmap_node_t *get_ipdata_by_hashmap(u32 ip_address_key) {
     struct ip_hash_table *table = &g_ip_hashtable;
+    printk(KERN_ERR "ip_address_key %08X table->bucket_num: %d \n",
+           ip_address_key, table->bucket_num);
     spin_lock(&table->lock);
 
-    int idx = hash_32(ip_address_key, table->bucket_num);
+    // int idx = hash_32(ip_address_key, table->bucket_num);
+    int idx =
+        jhash(&ip_address_key, sizeof(ip_address_key), 0) % table->bucket_num;
+
     struct hlist_head *head = &table->heads[idx];
     struct hlist_node *node = head->first;
     while (node) {
@@ -129,11 +142,14 @@ struct ip_hashmap_node_t *get_ipdata_by_hashmap(size_t ip_address_key) {
 }
 
 // 从哈希表中删除节点
-void del_ipdata_by_hashmap(size_t ip_address_key) {
+void del_ipdata_by_hashmap(u32 ip_address_key) {
     struct ip_hash_table *table = &g_ip_hashtable;
     spin_lock(&table->lock);
 
-    int idx = hash_32(ip_address_key, table->bucket_num);
+    // int idx = hash_32(ip_address_key, table->bucket_num);
+    int idx =
+        jhash(&ip_address_key, sizeof(ip_address_key), 0) % table->bucket_num;
+
     struct hlist_head *head = &table->heads[idx];
     struct hlist_node *node = head->first;
     while (node) {

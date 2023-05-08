@@ -10,7 +10,7 @@ auto call_driver(client_msg_t msg) -> bool {
     }
     return true;
 }
-auto block_ip(size_t ip_address, size_t time_sec) -> bool {
+auto block_ip(uint32_t ip_address, size_t time_sec) -> bool {
     client_msg_t msg;
     msg.check_sum = MSG_CHECK_SUM;
     msg.type = SD_MSG_TYPE_CLIENT_BLOCK_IP;

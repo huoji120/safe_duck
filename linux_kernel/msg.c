@@ -23,7 +23,7 @@ void push_msg(struct kernel_msg_t *msg) {
         wake_up_interruptible(&g_r3_wait_queue);
     }
 }
-void push_msg_new_ip_connect(size_t ip_address) {
+void push_msg_new_ip_connect(u32 ip_address) {
     struct kernel_msg_t *msg = kmalloc(sizeof(struct kernel_msg_t), GFP_KERNEL);
     if (msg == NULL) {
         printk(KERN_ERR "Failed to allocate memory for new msg\n");
@@ -33,7 +33,7 @@ void push_msg_new_ip_connect(size_t ip_address) {
     msg->u.ip_action.src_ip = ip_address;
     push_msg(msg);
 }
-void push_msg_syn_attack(size_t ip_address) {
+void push_msg_syn_attack(u32 ip_address) {
     struct kernel_msg_t *msg = kmalloc(sizeof(struct kernel_msg_t), GFP_KERNEL);
     if (msg == NULL) {
         printk(KERN_ERR "Failed to allocate memory for new msg\n");
@@ -43,7 +43,7 @@ void push_msg_syn_attack(size_t ip_address) {
     msg->u.ip_action.src_ip = ip_address;
     push_msg(msg);
 }
-void push_msg_ssh_bf_attack(size_t ip_address) {
+void push_msg_ssh_bf_attack(u32 ip_address) {
     struct kernel_msg_t *msg = kmalloc(sizeof(struct kernel_msg_t), GFP_KERNEL);
     if (msg == NULL) {
         printk(KERN_ERR "Failed to allocate memory for new msg\n");

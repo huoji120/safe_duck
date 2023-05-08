@@ -14,7 +14,7 @@ typedef struct kernel_msg_t {
     int type;
     union {
         struct {
-            unsigned long src_ip;
+            unsigned int src_ip;
         } ip_action;
     } u;
 };
@@ -23,7 +23,7 @@ typedef struct client_msg_t {
     int type;
     union {
         struct {
-            unsigned long src_ip;
+            unsigned int src_ip;
             unsigned long block_time;
         } ip_address;
     } u;
@@ -38,6 +38,6 @@ extern struct kernel_msg_t *get_msg(void);
 extern size_t get_msg_list_length(void);
 extern void cleanup_msg(void);
 extern void init_msg(void);
-extern void push_msg_syn_attack(size_t ip_address);
-extern void push_msg_new_ip_connect(size_t ip_address);
-extern void push_msg_ssh_bf_attack(size_t ip_address);
+extern void push_msg_syn_attack(u32 ip_address);
+extern void push_msg_new_ip_connect(u32 ip_address);
+extern void push_msg_ssh_bf_attack(u32 ip_address);

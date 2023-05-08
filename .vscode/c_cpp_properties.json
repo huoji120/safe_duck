@@ -10,7 +10,10 @@
                 "/usr/src/linux-headers-5.19.0-41-generic/arch/x86/include/generated/**",
                 "/usr/src/linux-headers-5.19.0-41-generic/arch/x86/include",
                 "/usr/src/linux-headers-5.19.0-41-generic/arch/x86/include/generated",
-                "/usr/src/linux-headers-5.19.0-41-generic/include"
+                "/usr/src/linux-headers-5.19.0-41-generic/include",
+                "/usr/include/bcc/**",
+                "/home/duck/project/linux_ebpf/libbpf-bootstrap/vmlinux/**",
+                "${workspaceFolder}/linux_ebpf/libbpf-bootstrap/bpftool/libbpf/.github/actions/build-selftests"
             ],
             "defines": [
                 "__KERNEL__",

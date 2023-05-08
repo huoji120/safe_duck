@@ -1,2 +1,3 @@
 *.cmake
 linux_kernel/.main.o.d
+linux_service/build/CMakeFiles/safe_duck.dir/tools.cpp.o.d

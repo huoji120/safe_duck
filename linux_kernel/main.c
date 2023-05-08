@@ -110,13 +110,20 @@ int cleanup(void) {
     }
     destory_dev();
     cleanup_msg();
-
+    uninstall_hooks();
     return -1;
 }
 
 static int __init driver_entry(void) {
     printk(KERN_WARNING "[DebugMessage] safe duck init\n");
-
+    if (init_kallsyms_lookup_name() == false) {
+        printk(KERN_ERR "Failed to init kallsyms_lookup_name\n");
+        return -1;
+    }
+    if (init_hooks() == false) {
+        printk(KERN_ERR "Failed to init kallsyms_lookup_name\n");
+        return -1;
+    }
     // Initialize list of addresses
     if (build_dev() == false) {
         printk(KERN_ERR "Failed to build device\n");

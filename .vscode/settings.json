@@ -111,7 +111,19 @@
         "string_view": "cpp",
         "numbers": "cpp",
         "ip_hashmap.h": "c",
-        "client_msg.h": "c"
+        "client_msg.h": "c",
+        "sched.h": "c",
+        "bpf.h": "c",
+        "bpf_helpers.h": "c",
+        "vmlinux.h": "c",
+        "cinttypes": "cpp",
+        "bpf_perf_event.h": "c",
+        "minimal.skel.h": "c",
+        "libbpf.h": "c",
+        "kallsyms.h": "c",
+        "my_kallsyms_lookup_name.h": "c",
+        "kprobes.h": "c",
+        "signal.h": "c"
     },
     "C_Cpp.errorSquiggles": "enabled"
 }

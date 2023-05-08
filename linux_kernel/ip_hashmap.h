@@ -23,7 +23,7 @@ struct ip_meta_info_t {
     size_t remove_time;
 };
 struct ip_hashmap_info {
-    size_t ip_address_key;
+    u32 ip_address_key;
     struct syn_scan_info_t syn_scan_info;
     struct crack_ip_info_t crack_ip_info;
     struct ip_meta_info_t ip_meta_info;
@@ -34,8 +34,8 @@ struct ip_hashmap_node_t {
 };
 extern bool init_ip_hashmap(void);
 extern void check_resize_table(struct ip_hash_table *table);
-extern void put_ipdata_by_hashmap(size_t ip_address_key,
+extern void put_ipdata_by_hashmap(u32 ip_address_key,
                                   struct ip_hashmap_info *info);
-extern struct ip_hashmap_node_t *get_ipdata_by_hashmap(size_t ip_address_key);
-extern void del_ipdata_by_hashmap(size_t ip_address_key);
+extern struct ip_hashmap_node_t *get_ipdata_by_hashmap(u32 ip_address_key);
+extern void del_ipdata_by_hashmap(u32 ip_address_key);
 extern void cleanup_iphashmap(void);

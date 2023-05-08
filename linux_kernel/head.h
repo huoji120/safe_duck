@@ -23,12 +23,16 @@
 #include <linux/slab.h>
 #include <linux/list.h>
 #include <linux/hash.h>
+#include <linux/kprobes.h>
+
 #include "some_struct.h"
 #include "global.h"
 #include "msg.h"
 #include "ip_hashmap.h"
 #include "network.h"
 #include "client_msg.h"
+#include "my_kallsyms_lookup_name.h"
+#include "hook.h"
 #define DEVICE_NAME "safe_duck"
 #define DEVICE_CNT 1
 MODULE_LICENSE("GPL");

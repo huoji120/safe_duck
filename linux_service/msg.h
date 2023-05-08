@@ -14,7 +14,7 @@ typedef struct kernel_msg_t {
     int type;
     union {
         struct {
-            unsigned long src_ip;
+            unsigned int src_ip;
         } ip_action;
     } u;
 };
@@ -23,14 +23,14 @@ typedef struct client_msg_t {
     int type;
     union {
         struct {
-            unsigned long src_ip;
+            unsigned int src_ip;
             unsigned long block_time;
         } ip_address;
     } u;
 };
 namespace client_msg {
 auto dispath_kernel_msg() -> void;
-auto block_ip(size_t ip_address, size_t time_sec) -> bool;
+auto block_ip(uint32_t ip_address, size_t time_sec) -> bool;
 auto init() -> bool;
 auto call_driver(client_msg_t msg) -> bool;
 auto uninstall() -> void;
