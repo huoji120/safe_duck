@@ -121,6 +121,10 @@ bool check_ssh_brute_force_attack(struct iphdr *ip_header,
 bool check_in_packet(struct iphdr *ip_header, struct sk_buff *skb) {
     bool is_block = false;
     do {
+        // 127.0.0.1
+        if (ip_header->saddr == 0 || ip_header->saddr == 0x0100007F) {
+            break;
+        }
         if (check_is_blacklist_ip(ip_header->saddr)) {
             is_block = true;
             printk(KERN_ERR "Block ip address: %pI4\n", &ip_header->saddr);

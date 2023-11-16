@@ -118,8 +118,8 @@ void put_ipdata_by_hashmap(u32 ip_address_key, struct ip_hashmap_info *info) {
 // 通过关键字获取哈希表节点
 struct ip_hashmap_node_t *get_ipdata_by_hashmap(u32 ip_address_key) {
     struct ip_hash_table *table = &g_ip_hashtable;
-    printk(KERN_ERR "ip_address_key %08X table->bucket_num: %d \n",
-           ip_address_key, table->bucket_num);
+    // printk(KERN_ERR "ip_address_key %08X table->bucket_num: %d \n",
+    //        ip_address_key, table->bucket_num);
     spin_lock(&table->lock);
 
     // int idx = hash_32(ip_address_key, table->bucket_num);

@@ -2,7 +2,7 @@
 #include "head.h"
 #define MSG_CHECK_SUM 1337
 
-typedef enum _msg_type {
+enum class _msg_type {
     SD_MSG_TYPE_ERROR = -1,
     SD_MSG_TYPE_NEW_IP_CONNECT = 0,
     SD_MSG_TYPE_SYN_ATTACK = 1,

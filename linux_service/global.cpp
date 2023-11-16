@@ -1,2 +1,4 @@
 #include "global.h"
-namespace global {};
+namespace global {
+IpBlacklistDB* ip_blacklist_db;
+};

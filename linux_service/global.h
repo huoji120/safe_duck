@@ -1,3 +1,6 @@
 #pragma once
 #include "head.h"
-namespace global {};
+class IpBlacklistDB;
+namespace global {
+extern IpBlacklistDB* ip_blacklist_db;
+};

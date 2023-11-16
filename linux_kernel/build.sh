@@ -3,7 +3,7 @@
 
 # 设定变量
 MODULE_NAME=safe_duck.ko
-TARGET_DIR="/run/user/1000/gvfs/smb-share:server=192.168.1.2,share=dev_share/safe_duck.ko"
+TARGET_DIR="/run/user/1000/gvfs/smb-share:server=192.168.1.3,share=dev_share/safe_duck.ko"
 
 # 编译模块
 if make; then
