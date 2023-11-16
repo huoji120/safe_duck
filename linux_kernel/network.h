@@ -13,3 +13,4 @@ extern unsigned int network_callback(const struct nf_hook_ops *ops,
                                      int (*okfn)(struct sk_buff *));
 extern void block_ip_address(u32 ip_address, size_t time_sec);
 extern bool check_is_blacklist_ip(u32 ip_address);
+extern void unblock_ip_address(u32 ip_address);

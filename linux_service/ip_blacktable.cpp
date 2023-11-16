@@ -97,6 +97,7 @@ auto IpBlacklistDB::deleteRecord(int id) -> void {
         sqlite3_finalize(stmt);
     }
 }
+// if time == 0 , it means forever
 auto IpBlacklistDB::selectRecordByIpAndTime(uint32_t ip, uint64_t time_second)
     -> std::optional<IpBlacklistRecord> {
     std::vector<IpBlacklistRecord> records;
@@ -109,7 +110,8 @@ auto IpBlacklistDB::selectRecordByIpAndTime(uint32_t ip, uint64_t time_second)
     // Adjusted SQL query to check if the timestamp is greater than or equal to
     // past_time
     const char *sql =
-        "SELECT * FROM ip_black_table WHERE ip = ? AND time >= ?;";
+        "SELECT * FROM ip_black_table WHERE ip = ? AND (time >= ? OR time = "
+        "0);";
     sqlite3_stmt *stmt;
 
     rc = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL);

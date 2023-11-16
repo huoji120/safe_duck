@@ -1,6 +1,12 @@
 #include "network.h"
+#include <unordered_map>
+#include <shared_mutex>
+#include <ctime>
+#include <mutex>
 namespace network_event {
-
+// read write lock
+std::shared_mutex ip_blacklist_lock;
+std::unordered_map<uint32_t, std::time_t> ip_blacklist_cache;
 auto block_ip(uint32_t ip_address, size_t time_sec) -> bool {
     client_msg_t msg{0};
     msg.check_sum = MSG_CHECK_SUM;
@@ -9,11 +15,40 @@ auto block_ip(uint32_t ip_address, size_t time_sec) -> bool {
     msg.u.ip_address.block_time = time_sec;
     return client_msg::call_driver(msg);
 }
+auto unblock_ip(uint32_t ip_address) -> bool {
+    client_msg_t msg{0};
+    msg.check_sum = MSG_CHECK_SUM;
+    msg.type = static_cast<int>(_msg_type::SD_MSG_TYPE_CLIENT_UNBLOCK_IP);
+    msg.u.ip_address.src_ip = ip_address;
+    return client_msg::call_driver(msg);
+}
 auto on_ip_connect(uint32_t ip_address) -> bool {
+    std::shared_lock lock(ip_blacklist_lock);
+    if (ip_blacklist_cache.find(ip_address) != ip_blacklist_cache.end()) {
+        const auto current_time = std::time(nullptr);
+        const auto block_time = ip_blacklist_cache[ip_address];
+        if (current_time - block_time < MAX_BLOCK_TIME) {
+            LOG("IP %s is in cache block list\n",
+                tools::cover_ip(ip_address).c_str());
+            return true;
+        }
+        // cover lock to write lock, remove the ip from cache
+        lock.unlock();
+        std::unique_lock ulock(ip_blacklist_lock);
+        ip_blacklist_cache.erase(ip_address);
+    }
     const auto is_still_in_block_list =
         global::ip_blacklist_db->selectRecordByIpAndTime(ip_address,
                                                          MAX_BLOCK_TIME);
     if (is_still_in_block_list) {
+        const auto block_time = is_still_in_block_list.value().time;
+        if (block_time != 0) {
+            lock.unlock();
+            std::unique_lock ulock(ip_blacklist_lock);
+            ip_blacklist_cache[ip_address] =
+                is_still_in_block_list.value().time;
+        }
+
         LOG("IP %s is still in block list\n",
             tools::cover_ip(ip_address).c_str());
         return true;

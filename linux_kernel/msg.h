@@ -7,6 +7,7 @@ typedef enum _msg_type {
     SD_MSG_TYPE_SYN_ATTACK = 1,
     SD_MSG_TYPE_CLIENT_BLOCK_IP = 2,
     SD_MSG_TYPE_SSH_BF_ATTACK = 3,
+    SD_MSG_TYPE_CLIENT_UNBLOCK_IP = 4,
 };
 
 typedef struct kernel_msg_t {

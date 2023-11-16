@@ -24,6 +24,13 @@ bool check_is_blacklist_ip(u32 ip_address) {
     }
     return data->info.ip_meta_info.is_attack;
 }
+void unblock_ip_address(u32 ip_address) {
+    struct ip_hashmap_node_t *data = get_ipdata_by_hashmap(ip_address);
+    if (data == NULL) {
+        return;
+    }
+    data->info.ip_meta_info.is_attack = false;
+}
 bool check_syn_attack(struct iphdr *ip_header, struct sk_buff *skb) {
     bool is_block = false;
     do {
