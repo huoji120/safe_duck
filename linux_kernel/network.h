@@ -3,7 +3,7 @@
 #define IP_ATTCK_BLOCK_TIME 600
 #define SYN_SCAN_THRESHOLD 500
 #define SYN_SCAN_TIME 10
-#define SSH_BRUTE_FORCE_THRESHOLD 10
+#define SSH_BRUTE_FORCE_THRESHOLD 1200
 #define SSH_BRUTE_FORCE_TIME 5
 #define SSH_PORT 22
 extern unsigned int network_callback(const struct nf_hook_ops *ops,

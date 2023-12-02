@@ -63,10 +63,11 @@ bool check_syn_attack(struct iphdr *ip_header, struct sk_buff *skb) {
         }
         data->info.syn_scan_info.num_syn_packets++;
         if (data->info.syn_scan_info.num_syn_packets >= SYN_SCAN_THRESHOLD) {
-            // printk(KERN_ERR "SYN attack detected from %pI4 num packet: %d
-            // \n",
-            //        &ip_header->saddr,
-            //        data->info.syn_scan_info.num_syn_packets);
+            printk(KERN_ERR
+                   "SYN attack detected from %pI4 num packet: %d "
+                   "SYN_SCAN_THRESHOLD: %d \n",
+                   &ip_header->saddr, data->info.syn_scan_info.num_syn_packets,
+                   SYN_SCAN_THRESHOLD);
             push_msg_syn_attack(ip_address_key);
             block_ip_address(ip_address_key, IP_ATTCK_BLOCK_TIME);
             is_block = true;
@@ -109,14 +110,16 @@ bool check_ssh_brute_force_attack(struct iphdr *ip_header,
         if (time_diff >= SSH_BRUTE_FORCE_TIME) {
             data->info.crack_ip_info.num_connect = 0;
             data->info.crack_ip_info.last_seen = current_time_sec;
+            // printk(KERN_ERR "reset num_connect time_diff: %d \n", time_diff);
             break;
         }
         data->info.crack_ip_info.num_connect++;
         if (data->info.crack_ip_info.num_connect >= SSH_BRUTE_FORCE_THRESHOLD) {
-            // printk(KERN_ERR "SYN attack detected from %pI4 num packet: %d
-            // \n",
-            //        &ip_header->saddr,
-            //        data->info.syn_scan_info.num_syn_packets);
+            printk(KERN_ERR
+                   "SSH attack detected from %pI4 num packet: %d "
+                   "SSH_BRUTE_FORCE_THRESHOLD: %d time_diff: %d\n",
+                   &ip_header->saddr, data->info.crack_ip_info.num_connect,
+                   SSH_BRUTE_FORCE_THRESHOLD, time_diff);
             push_msg_ssh_bf_attack(ip_address_key);
             block_ip_address(ip_address_key, IP_ATTCK_BLOCK_TIME);
             is_block = true;
@@ -134,7 +137,7 @@ bool check_in_packet(struct iphdr *ip_header, struct sk_buff *skb) {
         }
         if (check_is_blacklist_ip(ip_header->saddr)) {
             is_block = true;
-            printk(KERN_ERR "Block ip address: %pI4\n", &ip_header->saddr);
+            // printk(KERN_ERR "Block ip address: %pI4\n", &ip_header->saddr);
             break;
         }
         if (check_syn_attack(ip_header, skb)) {

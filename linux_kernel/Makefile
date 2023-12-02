@@ -4,6 +4,8 @@ safe_duck-objs := main.o msg.o global.o some_struct.o ip_hashmap.o network.o cli
 PWD  := $(shell pwd)
 KVER := $(shell uname -r)
 KDIR := /lib/modules/$(KVER)/build
+CFLAGS-y += -std=c99
+
 all:
 	$(MAKE) -C $(KDIR) M=$(PWD) modules
 clean:
