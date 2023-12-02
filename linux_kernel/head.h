@@ -24,6 +24,7 @@
 #include <linux/list.h>
 #include <linux/hash.h>
 #include <linux/kprobes.h>
+#include <linux/kthread.h>
 
 #include "some_struct.h"
 #include "global.h"

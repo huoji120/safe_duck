@@ -37,11 +37,12 @@ void thread_demon_ip_hashmap(void *ctx) {
 }
 // 初始化哈希表对象
 bool init_ip_hashmap(void) {
+    int i = 0;
     struct ip_hash_table *table = &g_ip_hashtable;
     table->bucket_num = BUCKET_NUM;
     table->heads = kzalloc(BUCKET_NUM * sizeof(struct hlist_head), GFP_KERNEL);
     if (table->heads) {
-        for (int i = 0; i < BUCKET_NUM; ++i) {
+        for (i = 0; i < BUCKET_NUM; ++i) {
             INIT_HLIST_HEAD(&table->heads[i]);
         }
     }
@@ -61,7 +62,8 @@ bool init_ip_hashmap(void) {
 void check_resize_table(struct ip_hash_table *table) {
     unsigned int bucket_num = table->bucket_num;
     int count = 0;
-    for (int i = 0; i < bucket_num; ++i) {
+    int i = 0;
+    for (i = 0; i < bucket_num; ++i) {
         struct hlist_head *head = &table->heads[i];
         if (!hlist_empty(head)) {
             count++;
@@ -73,7 +75,7 @@ void check_resize_table(struct ip_hash_table *table) {
         struct hlist_head *new_heads =
             kzalloc(table->bucket_num * sizeof(struct hlist_head), GFP_KERNEL);
         if (new_heads) {
-            for (int i = 0; i < table->bucket_num / 2; ++i) {
+            for (i = 0; i < table->bucket_num / 2; ++i) {
                 struct hlist_node *node, *tmp;
                 hlist_for_each_safe(node, tmp, &table->heads[i]) {
                     struct ip_hashmap_node_t *data =
@@ -167,6 +169,7 @@ void del_ipdata_by_hashmap(u32 ip_address_key) {
     spin_unlock(&table->lock);
 }
 void cleanup_iphashmap(void) {
+    int i = 0;
     kthread_stop(g_ip_hashtable.cleanup_thread);  // 停止清理线程
     if (g_ip_hashtable.heads) {
         spin_lock(&g_ip_hashtable.lock);
@@ -174,7 +177,7 @@ void cleanup_iphashmap(void) {
         struct hlist_node *node;
         struct ip_hashmap_node_t *data;
         // 释放哈希表节点动态分配的内存
-        for (int i = 0; i < g_ip_hashtable.bucket_num; ++i) {
+        for (i = 0; i < g_ip_hashtable.bucket_num; ++i) {
             head = &g_ip_hashtable.heads[i];
             hlist_for_each_entry_safe(data, node, head, node) {
                 hlist_del(&data->node);

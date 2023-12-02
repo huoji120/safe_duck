@@ -125,5 +125,6 @@
         "kprobes.h": "c",
         "signal.h": "c"
     },
-    "C_Cpp.errorSquiggles": "enabled"
+    "C_Cpp.errorSquiggles": "enabled",
+    "cmake.configureOnOpen": false
 }
