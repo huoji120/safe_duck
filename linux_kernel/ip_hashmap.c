@@ -6,14 +6,14 @@ void thread_demon_ip_hashmap(void *ctx) {
     struct hlist_head *head;
     struct hlist_node *node, *tmp;
     struct ip_hashmap_node_t *data;
-
+    int i = 0;
     while (!kthread_should_stop()) {
         msleep_interruptible(30000);  // 每 30 秒执行一次清理操作
         const s64 current_time_sec = ktime_get_real_seconds();
 
         spin_lock(&g_ip_hashtable.lock);
 
-        for (int i = 0; i < g_ip_hashtable.bucket_num; ++i) {
+        for (i = 0; i < g_ip_hashtable.bucket_num; ++i) {
             head = &g_ip_hashtable.heads[i];
             hlist_for_each_safe(node, tmp, head) {
                 data = container_of(node, struct ip_hashmap_node_t, node);
